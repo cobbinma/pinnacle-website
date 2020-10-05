@@ -1,11 +1,16 @@
 import React from "react";
 import Layout from "../components/layout";
-import { Box, Card, CardMedia } from "@material-ui/core";
+import { Box, Card, CardActionArea, CardMedia, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 
 const useStyles = makeStyles({
-  root: {
-    minWidth: 275,
+  img: {
+    height: "100%",
+    width: "100%",
+    opacity: 0.75,
+  },
+  card: {
+    maxHeight: 600,
   },
 });
 
@@ -14,14 +19,15 @@ const Home: React.FC = () => {
 
   return (
     <Layout>
-      <Box width={1}>
-        <Card className={classes.root}>
-          <CardMedia
-            style={{ height: 5, paddingTop: "56%" }}
-            image="/images/lake.jpg"
-          />
-        </Card>
-      </Box>
+      <Card className={classes.card}>
+        <CardMedia
+          component="img"
+          className={classes.img}
+          alt="Lake"
+          image="/images/lake.jpg"
+          title="Lake"
+        />
+      </Card>
     </Layout>
   );
 };
