@@ -7,9 +7,10 @@ import {
   Toolbar,
   makeStyles,
   Typography,
-  Button,
+  Drawer,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
+import SideBar from "./SideBar";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -28,6 +29,22 @@ const useStyles = makeStyles((theme: Theme) =>
 const Layout: React.FC<React.ReactNode> = ({ children }) => {
   const classes = useStyles();
 
+  const [showDrawer, setShowDrawer] = React.useState<boolean>(false);
+
+  const toggleDrawer = (open: boolean) => (
+    event: React.KeyboardEvent | React.MouseEvent
+  ) => {
+    if (
+      event.type === "keydown" &&
+      ((event as React.KeyboardEvent).key === "Tab" ||
+        (event as React.KeyboardEvent).key === "Shift")
+    ) {
+      return;
+    }
+
+    setShowDrawer(open);
+  };
+
   return (
     <div>
       <AppBar position="static" className={classes.root}>
@@ -37,6 +54,7 @@ const Layout: React.FC<React.ReactNode> = ({ children }) => {
             className={classes.menuButton}
             color="inherit"
             aria-label="menu"
+            onClick={toggleDrawer(true)}
           >
             <MenuIcon />
           </IconButton>
@@ -45,6 +63,9 @@ const Layout: React.FC<React.ReactNode> = ({ children }) => {
           </Typography>
         </Toolbar>
       </AppBar>
+      <Drawer open={showDrawer} onClose={toggleDrawer(false)}>
+        <SideBar toggleDrawer={toggleDrawer} />
+      </Drawer>
       {children}
     </div>
   );
