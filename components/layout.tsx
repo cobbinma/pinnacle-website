@@ -9,6 +9,7 @@ import {
   Typography,
   Drawer,
   Button,
+  Hidden,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import SideBar from "./SideBar";
@@ -50,22 +51,26 @@ const Layout: React.FC<React.ReactNode> = ({ children }) => {
     <div>
       <AppBar position="static" className={classes.root}>
         <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="menu"
-            onClick={toggleDrawer(true)}
-          >
-            <MenuIcon />
-          </IconButton>
+          <Hidden mdUp>
+            <IconButton
+              edge="start"
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="menu"
+              onClick={toggleDrawer(true)}
+            >
+              <MenuIcon />
+            </IconButton>
+          </Hidden>
           <Typography variant="h6" className={classes.title}>
             Pinnacle Acoustic Consultants
           </Typography>
-          <Button color="inherit">Home</Button>
-          <Button color="inherit">About</Button>
-          <Button color="inherit">Services</Button>
-          <Button color="inherit">Contact</Button>
+          <Hidden smDown>
+            <Button color="inherit">Home</Button>
+            <Button color="inherit">About</Button>
+            <Button color="inherit">Services</Button>
+            <Button color="inherit">Contact</Button>
+          </Hidden>
         </Toolbar>
       </AppBar>
       <Drawer open={showDrawer} onClose={toggleDrawer(false)}>
