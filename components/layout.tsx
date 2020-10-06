@@ -89,7 +89,7 @@ const Layout: React.FC<React.ReactNode> = ({ children }) => {
           <Hidden smDown>
             {pages.map((page) => {
               return (
-                <Button color="inherit" href={page.link}>
+                <Button key={page.title} color="inherit" href={page.link}>
                   {page.title}
                 </Button>
               );
