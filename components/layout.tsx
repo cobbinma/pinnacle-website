@@ -13,6 +13,10 @@ import {
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import SideBar from "./SideBar";
+import HomeIcon from "@material-ui/icons/Home";
+import PeopleIcon from "@material-ui/icons/People";
+import DirectionsTransitIcon from "@material-ui/icons/DirectionsTransit";
+import EmailIcon from "@material-ui/icons/Email";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -27,6 +31,23 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 );
+
+export interface Page {
+  title: string;
+  link: string;
+  icon: React.ReactNode;
+}
+
+const pages: Array<Page> = [
+  { title: "Home", link: "/", icon: <HomeIcon /> },
+  { title: "About", link: "/about", icon: <PeopleIcon /> },
+  {
+    title: "Services",
+    link: "/services",
+    icon: <DirectionsTransitIcon />,
+  },
+  { title: "Contact", link: "/contact", icon: <EmailIcon /> },
+];
 
 const Layout: React.FC<React.ReactNode> = ({ children }) => {
   const classes = useStyles();
@@ -66,15 +87,18 @@ const Layout: React.FC<React.ReactNode> = ({ children }) => {
             Pinnacle Acoustic Consultants
           </Typography>
           <Hidden smDown>
-            <Button color="inherit">Home</Button>
-            <Button color="inherit">About</Button>
-            <Button color="inherit">Services</Button>
-            <Button color="inherit">Contact</Button>
+            {pages.map((page) => {
+              return (
+                <Button color="inherit" href={page.link}>
+                  {page.title}
+                </Button>
+              );
+            })}
           </Hidden>
         </Toolbar>
       </AppBar>
       <Drawer open={showDrawer} onClose={toggleDrawer(false)}>
-        <SideBar toggleDrawer={toggleDrawer} />
+        <SideBar toggleDrawer={toggleDrawer} pages={pages} />
       </Drawer>
       {children}
     </div>

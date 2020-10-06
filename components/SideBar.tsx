@@ -1,10 +1,7 @@
 import React from "react";
 import { List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
-import HomeIcon from "@material-ui/icons/Home";
-import PeopleIcon from "@material-ui/icons/People";
-import DirectionsTransitIcon from "@material-ui/icons/DirectionsTransit";
-import EmailIcon from "@material-ui/icons/Email";
 import { makeStyles } from "@material-ui/styles";
+import { Page } from "./layout";
 
 const useStyles = makeStyles({
   list: {
@@ -13,13 +10,23 @@ const useStyles = makeStyles({
 });
 
 interface SideBarProps {
+  pages: Array<Page>;
   toggleDrawer(
     open: boolean
   ): (event: React.KeyboardEvent | React.MouseEvent) => void;
 }
 
-const SideBar: React.FC<SideBarProps> = ({ toggleDrawer }) => {
+const SideBar: React.FC<SideBarProps> = ({ toggleDrawer, pages }) => {
   const classes = useStyles();
+
+  const getListItem = (page: Page) => {
+    return (
+      <ListItem button key={page.title} component="a" href={page.link}>
+        <ListItemIcon>{page.icon}</ListItemIcon>
+        <ListItemText primary={page.title} />
+      </ListItem>
+    );
+  };
 
   return (
     <div
@@ -28,28 +35,7 @@ const SideBar: React.FC<SideBarProps> = ({ toggleDrawer }) => {
       onClick={toggleDrawer(false)}
       onKeyDown={toggleDrawer(false)}
     >
-      <List>
-        {["Home", "About us", "Services", "Contact"].map((text) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {(() => {
-                switch (text) {
-                  case "Home":
-                    return <HomeIcon />;
-                  case "About us":
-                    return <PeopleIcon />;
-                  case "Services":
-                    return <DirectionsTransitIcon />;
-                  case "Contact":
-                    return <EmailIcon />;
-                  default:
-                }
-              })()}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
+      <List>{pages.map(getListItem)}</List>
     </div>
   );
 };

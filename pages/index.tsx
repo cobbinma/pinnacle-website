@@ -90,7 +90,7 @@ const Home: React.FC = () => {
                 publishing software like Aldus PageMaker including versions of
                 Lorem Ipsum.
               </Typography>
-              <Button variant="contained" color="primary">
+              <Button variant="contained" color="primary" href="/about">
                 About us
               </Button>
             </div>
@@ -124,7 +124,7 @@ const Home: React.FC = () => {
                 publishing software like Aldus PageMaker including versions of
                 Lorem Ipsum.
               </Typography>
-              <Button variant="contained" color="primary">
+              <Button variant="contained" color="primary" href="/services">
                 Services
               </Button>
             </div>
