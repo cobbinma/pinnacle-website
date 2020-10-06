@@ -11,7 +11,7 @@ const useStyles = makeStyles({
     minHeight: 600,
   },
   card: {
-    height: 200,
+    height: 300,
   },
   title: {
     marginTop: 50,
