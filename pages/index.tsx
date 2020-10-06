@@ -14,7 +14,7 @@ const useStyles = makeStyles({
     height: 600,
   },
   title: {
-    padding: 100,
+    marginTop: 100,
     fontWeight: 900,
   },
   grid: {
@@ -41,13 +41,8 @@ const Home: React.FC = () => {
           image="/images/lake.jpg"
           title="Pinnacle Acoustic Consultancy"
         >
-          <Grid
-            container
-            direction="row"
-            justify="flex-start"
-            alignItems="center"
-          >
-            <Grid item xs={12} md={7}>
+          <Grid container direction="row" justify="center" alignItems="center">
+            <Grid item xs={11} md={7}>
               <div className={classes.title}>
                 <Typography variant="h1">
                   Pinnacle Acoustic Consultants

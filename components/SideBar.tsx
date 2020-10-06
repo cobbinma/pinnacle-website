@@ -3,6 +3,7 @@ import { List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 import HomeIcon from "@material-ui/icons/Home";
 import PeopleIcon from "@material-ui/icons/People";
 import DirectionsTransitIcon from "@material-ui/icons/DirectionsTransit";
+import EmailIcon from "@material-ui/icons/Email";
 import { makeStyles } from "@material-ui/styles";
 
 const useStyles = makeStyles({
@@ -28,7 +29,7 @@ const SideBar: React.FC<SideBarProps> = ({ toggleDrawer }) => {
       onKeyDown={toggleDrawer(false)}
     >
       <List>
-        {["Home", "About us", "Services"].map((text) => (
+        {["Home", "About us", "Services", "Contact"].map((text) => (
           <ListItem button key={text}>
             <ListItemIcon>
               {(() => {
@@ -39,6 +40,8 @@ const SideBar: React.FC<SideBarProps> = ({ toggleDrawer }) => {
                     return <PeopleIcon />;
                   case "Services":
                     return <DirectionsTransitIcon />;
+                  case "Contact":
+                    return <EmailIcon />;
                   default:
                 }
               })()}

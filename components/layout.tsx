@@ -8,6 +8,7 @@ import {
   makeStyles,
   Typography,
   Drawer,
+  Button,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import SideBar from "./SideBar";
@@ -61,6 +62,10 @@ const Layout: React.FC<React.ReactNode> = ({ children }) => {
           <Typography variant="h6" className={classes.title}>
             Pinnacle Acoustic Consultants
           </Typography>
+          <Button color="inherit">Home</Button>
+          <Button color="inherit">About</Button>
+          <Button color="inherit">Services</Button>
+          <Button color="inherit">Contact</Button>
         </Toolbar>
       </AppBar>
       <Drawer open={showDrawer} onClose={toggleDrawer(false)}>
