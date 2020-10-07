@@ -1,29 +1,10 @@
 import React from "react";
 import Layout from "../components/layout";
-import {
-  Button,
-  Card,
-  CardMedia,
-  Grid,
-  TextField,
-  Typography,
-} from "@material-ui/core";
+import { Button, Grid, TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
+import Banner from "../components/Banner";
 
 const useStyles = makeStyles({
-  img: {
-    height: "100%",
-    width: "100%",
-    opacity: 0.75,
-    minHeight: 600,
-  },
-  card: {
-    height: 300,
-  },
-  title: {
-    marginTop: 50,
-    fontWeight: 900,
-  },
   grid: {
     marginTop: 70,
     marginBottom: 50,
@@ -42,22 +23,7 @@ const About: React.FC = () => {
 
   return (
     <Layout>
-      <Card className={classes.card}>
-        <CardMedia
-          component="div"
-          className={classes.img}
-          image="/images/contact.jpg"
-          title="Pinnacle Acoustic Consultancy"
-        >
-          <Grid container direction="row" justify="center" alignItems="center">
-            <Grid item xs={11} md={7}>
-              <div className={classes.title}>
-                <Typography variant="h1">Contact</Typography>
-              </div>
-            </Grid>
-          </Grid>
-        </CardMedia>
-      </Card>
+      <Banner image="/images/contact.jpg" title="Contact" height={300} />
       <Grid
         className={classes.grid}
         container

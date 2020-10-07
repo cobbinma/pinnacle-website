@@ -2,6 +2,7 @@ import React from "react";
 import Layout from "../components/layout";
 import { Card, CardMedia, Grid, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
+import Banner from "../components/Banner";
 
 const useStyles = makeStyles({
   img: {
@@ -39,22 +40,7 @@ const About: React.FC = () => {
 
   return (
     <Layout>
-      <Card className={classes.card}>
-        <CardMedia
-          component="div"
-          className={classes.img}
-          image="/images/london.jpg"
-          title="Pinnacle Acoustic Consultancy"
-        >
-          <Grid container direction="row" justify="center" alignItems="center">
-            <Grid item xs={11} md={7}>
-              <div className={classes.title}>
-                <Typography variant="h1">About</Typography>
-              </div>
-            </Grid>
-          </Grid>
-        </CardMedia>
-      </Card>
+      <Banner image="/images/london.jpg" title="About" height={300} />
       <Grid
         className={classes.grid}
         container
