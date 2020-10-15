@@ -1,13 +1,32 @@
 import React from "react";
-import { List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
+import {
+  createStyles,
+  Divider,
+  IconButton,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Theme,
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { Page } from "./layout";
 
-const useStyles = makeStyles({
-  list: {
-    width: 250,
-  },
-});
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    list: {
+      width: 250,
+    },
+    drawerHeader: {
+      display: "flex",
+      alignItems: "center",
+      padding: theme.spacing(0, 1),
+      ...theme.mixins.toolbar,
+      justifyContent: "flex-end",
+    },
+  })
+);
 
 interface SideBarProps {
   pages: Array<Page>;
@@ -35,7 +54,15 @@ const SideBar: React.FC<SideBarProps> = ({ toggleDrawer, pages }) => {
       onClick={toggleDrawer(false)}
       onKeyDown={toggleDrawer(false)}
     >
-      <List>{pages.map(getListItem)}</List>
+      <List>
+        <div className={classes.drawerHeader}>
+          <IconButton onClick={toggleDrawer(false)}>
+            <ChevronLeftIcon />
+          </IconButton>
+        </div>
+        <Divider />
+        {pages.map(getListItem)}
+      </List>
     </div>
   );
 };
