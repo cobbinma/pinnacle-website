@@ -26,7 +26,7 @@ const useStyles = makeStyles({
     marginBottom: 20,
   },
   section: {
-    marginBottom: 70,
+    marginBottom: 20,
   },
   avatar: {
     height: 250,

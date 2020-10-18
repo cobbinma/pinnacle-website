@@ -19,7 +19,7 @@ const useStyles = makeStyles({
     fontWeight: 900,
   },
   grid: {
-    marginTop: 20,
+    marginTop: 70,
     marginBottom: 50,
   },
   content: {
@@ -27,6 +27,11 @@ const useStyles = makeStyles({
   },
   section: {
     marginBottom: 70,
+  },
+  logo: {
+    marginTop: 20,
+    height: "100%",
+    width: "100%",
   },
 });
 
@@ -130,6 +135,9 @@ const Home: React.FC = () => {
                 </Button>
               </Link>
             </div>
+          </Grid>
+          <Grid item xs={10} md={8}>
+            <img className={classes.logo} src="images/logo.png" alt="logo" />
           </Grid>
         </Grid>
       </Grid>

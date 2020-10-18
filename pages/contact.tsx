@@ -43,6 +43,7 @@ const About: React.FC = () => {
                 id="name"
                 label="Name"
                 variant="outlined"
+                color="primary"
               />
             </p>
             <p>
@@ -54,6 +55,7 @@ const About: React.FC = () => {
                 id="email"
                 label="Email"
                 variant="outlined"
+                color="primary"
               />
             </p>
             <p>
@@ -65,6 +67,7 @@ const About: React.FC = () => {
                 multiline
                 rows={4}
                 variant="outlined"
+                color="primary"
               />
             </p>
             <p>

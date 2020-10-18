@@ -30,6 +30,9 @@ const useStyles = makeStyles((theme: Theme) =>
     title: {
       flexGrow: 1,
     },
+    logo: {
+      maxHeight: 60,
+    },
   })
 );
 
@@ -97,6 +100,11 @@ const Layout: React.FC<React.ReactNode> = ({ children }) => {
                 </Link>
               );
             })}
+            <img
+              className={classes.logo}
+              src="images/logo-white.png"
+              alt="logo"
+            />
           </Hidden>
         </Toolbar>
       </AppBar>
