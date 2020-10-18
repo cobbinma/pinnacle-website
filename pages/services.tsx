@@ -1,8 +1,10 @@
 import React from "react";
 import Layout from "../components/layout";
 import Banner from "../components/Banner";
-import { Grid, Typography } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
+import ServiceList from "../components/ServiceList";
+import { ServiceProps } from "../components/Service";
 
 const useStyles = makeStyles({
   img: {
@@ -35,12 +37,82 @@ const useStyles = makeStyles({
   },
 });
 
+const services: Array<ServiceProps> = [
+  {
+    id: "0",
+    title: "Noise and vibration modelling",
+    image: "/images/modelling.jpg",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+  },
+  {
+    id: "1",
+    title: "Noise and vibration monitoring",
+    image: "",
+    description: null,
+  },
+  {
+    id: "2",
+    title: "Environmental impact assessment",
+    image: "",
+    description: null,
+  },
+  {
+    id: "3",
+    title: "Health impact assessment",
+    image: "",
+    description: null,
+  },
+  {
+    id: "4",
+    title: "Consultation and stakeholder engagement",
+    image: "",
+    description: null,
+  },
+  {
+    id: "5",
+    title: "Integrated design",
+    image: "",
+    description: null,
+  },
+  {
+    id: "6",
+    title: "Review and assurance",
+    image: "",
+    description: null,
+  },
+  {
+    id: "7",
+    title: "Policy and strategy",
+    image: "",
+    description: null,
+  },
+  {
+    id: "8",
+    title: "Research and innovation",
+    image: "",
+    description: null,
+  },
+  {
+    id: "9",
+    title: "Expert witness",
+    image: "",
+    description: null,
+  },
+  {
+    id: "10",
+    title: "Monetisation",
+    image: "",
+    description: null,
+  },
+];
+
 const Services: React.FC = () => {
   const classes = useStyles();
 
   return (
     <Layout>
-      <Banner image="/images/beach.jpg" title="Services" height={300} />
+      <Banner image="/images/blue.jpg" title="Services" height={300} />
       <Grid
         className={classes.grid}
         container
@@ -57,16 +129,7 @@ const Services: React.FC = () => {
         >
           <Grid item xs={10} md={8}>
             <div>
-              <Typography
-                className={classes.content}
-                variant="h4"
-                component="p"
-              >
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book.
-              </Typography>
+              <ServiceList services={services} />
             </div>
           </Grid>
         </Grid>
