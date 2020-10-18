@@ -17,6 +17,7 @@ import HomeIcon from "@material-ui/icons/Home";
 import PeopleIcon from "@material-ui/icons/People";
 import DirectionsTransitIcon from "@material-ui/icons/DirectionsTransit";
 import EmailIcon from "@material-ui/icons/Email";
+import Link from "next/link";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -89,9 +90,11 @@ const Layout: React.FC<React.ReactNode> = ({ children }) => {
           <Hidden smDown>
             {pages.map((page) => {
               return (
-                <Button key={page.title} color="inherit" href={page.link}>
-                  {page.title}
-                </Button>
+                <Link key={page.title} href={page.link} passHref>
+                  <Button color="inherit" href={page.link}>
+                    {page.title}
+                  </Button>
+                </Link>
               );
             })}
           </Hidden>

@@ -62,10 +62,14 @@ const About: React.FC = () => {
                 variant="h4"
                 component="p"
               >
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book.
+                We are a new start-up company which has been formed as a result
+                of the Covid-19 pandemic. Members of our team held senior
+                positions in Arup and other organisations and were made
+                redundant in 2020. We have kept a core team of noise specialists
+                together which means that we can offer the same level of
+                expertise and quality of advice that you would get if you
+                instructed a large firm of consultants but at the fraction of
+                the cost.
               </Typography>
             </div>
           </Grid>
@@ -77,11 +81,8 @@ const About: React.FC = () => {
           justify="center"
           alignItems="center"
         >
-          <Grid item xs={10} md={8}>
+          <Grid item xs={10} md={8} className={classes.content}>
             <div>
-              <Typography className={classes.content} variant="h3">
-                Who We Are
-              </Typography>
               <Grid
                 container
                 direction="row"
@@ -90,21 +91,12 @@ const About: React.FC = () => {
                 spacing={2}
               >
                 <Grid item md={8}>
-                  <Typography
-                    className={classes.content}
-                    variant="h5"
-                    component="p"
-                  >
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industry's
-                    standard dummy text ever since the 1500s, when an unknown
-                    printer took a galley of type and scrambled it to make a
-                    type specimen book. It has survived not only five centuries,
-                    but also the leap into electronic typesetting, remaining
-                    essentially unchanged. It was popularised in the 1960s with
-                    the release of Letraset sheets containing Lorem Ipsum
-                    passages, and more recently with desktop publishing software
-                    like Aldus PageMaker including versions of Lorem Ipsum.
+                  <Typography variant="h5" component="p">
+                    Our team have held client roles on nationally significant
+                    infrastructure projects. This means that we are well placed
+                    to offer a range of services including seconded roles,
+                    agency work as well as providing traditional consultancy
+                    services.
                   </Typography>
                 </Grid>
                 <Grid item md={4}>
@@ -118,6 +110,23 @@ const About: React.FC = () => {
                 </Grid>
               </Grid>
             </div>
+          </Grid>
+          <Grid item xs={10} md={8} className={classes.content}>
+            <Typography variant="h5" component="p">
+              We provide services to the public (local authorities and
+              Government) and private sectors across a wide range of sectors
+              including:
+              <ul>
+                <li>Aviation</li>
+                <li>Rail</li>
+                <li>Highways</li>
+                <li>Construction</li>
+                <li>Industrial</li>
+                <li>Commercial</li>
+                <li>Energy</li>
+                <li>Water</li>
+              </ul>
+            </Typography>
           </Grid>
         </Grid>
       </Grid>
