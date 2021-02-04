@@ -99,7 +99,65 @@ export interface IHomePageSection extends Entry<IHomePageSectionFields> {
   };
 }
 
-export type CONTENT_TYPE = "aboutPage" | "homePage" | "homePageSection";
+export interface IServiceFields {
+  /** title */
+  title: string;
+
+  /** description */
+  description?: Document | undefined;
+}
+
+export interface IService extends Entry<IServiceFields> {
+  sys: {
+    id: string;
+    type: string;
+    createdAt: string;
+    updatedAt: string;
+    locale: string;
+    contentType: {
+      sys: {
+        id: "service";
+        linkType: "ContentType";
+        type: "Link";
+      };
+    };
+  };
+}
+
+export interface IServicesPageFields {
+  /** title */
+  title: string;
+
+  /** banner */
+  banner: Asset;
+
+  /** services */
+  services: IService[];
+}
+
+export interface IServicesPage extends Entry<IServicesPageFields> {
+  sys: {
+    id: string;
+    type: string;
+    createdAt: string;
+    updatedAt: string;
+    locale: string;
+    contentType: {
+      sys: {
+        id: "servicesPage";
+        linkType: "ContentType";
+        type: "Link";
+      };
+    };
+  };
+}
+
+export type CONTENT_TYPE =
+  | "aboutPage"
+  | "homePage"
+  | "homePageSection"
+  | "service"
+  | "servicesPage";
 
 export type LOCALE_CODE = "en-US";
 
