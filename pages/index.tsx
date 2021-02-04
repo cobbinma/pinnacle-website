@@ -1,8 +1,11 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Layout from "../components/layout";
 import { Button, Card, CardMedia, Grid, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
+import {client} from "./_app";
 import Link from "next/link";
+import {IHomePageFields} from "../@types/generated/contentful";
+import {Entry} from "contentful";
 
 const useStyles = makeStyles({
   img: {
@@ -37,6 +40,14 @@ const useStyles = makeStyles({
 
 const Home: React.FC = () => {
   const classes = useStyles();
+  const [home, setHome] = useState<Entry<IHomePageFields>>();
+
+  useEffect(() => {
+    client.getEntry<IHomePageFields>("6eZXvRN13hBH8saBgMBP7T").then((h) => {
+      setHome(h)})
+  }, [setHome])
+
+  if (home == null) return null
 
   return (
     <Layout>
@@ -44,17 +55,17 @@ const Home: React.FC = () => {
         <CardMedia
           component="div"
           className={classes.img}
-          image="/images/lake.jpg"
+          image={'https:' + home?.fields?.bannerImage?.fields.file.url}
           title="Pinnacle Acoustic Consultancy"
         >
           <Grid container direction="row" justify="center" alignItems="center">
             <Grid item xs={11} md={7}>
               <div className={classes.title}>
                 <Typography variant="h1">
-                  Pinnacle Acoustic Consultants
+                  {home?.fields?.title}
                 </Typography>
                 <Typography variant="h5">
-                  Environmental Noise and Vibration Specialists
+                  {home?.fields?.titleDescription}
                 </Typography>
               </div>
             </Grid>
@@ -137,7 +148,7 @@ const Home: React.FC = () => {
             </div>
           </Grid>
           <Grid item xs={10} md={8}>
-            <img className={classes.logo} src="images/logo.png" alt="logo" />
+            <img className={classes.logo} src={'https:' + home?.fields?.footerLogo?.fields.file.url} alt="logo" />
           </Grid>
         </Grid>
       </Grid>
