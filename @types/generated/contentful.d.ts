@@ -45,7 +45,7 @@ export interface IHomePageSectionFields {
   link: string;
 
   /** description */
-  description?: Document | undefined;
+  description?: string | undefined;
 }
 
 export interface IHomePageSection extends Entry<IHomePageSectionFields> {

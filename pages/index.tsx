@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../components/layout";
 import { Button, Card, CardMedia, Grid, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
-import {client} from "./_app";
+import { client } from "./_app";
 import Link from "next/link";
-import {IHomePageFields} from "../@types/generated/contentful";
-import {Entry} from "contentful";
-import {documentToHtmlString} from "@contentful/rich-text-html-renderer";
+import { IHomePageFields } from "../@types/generated/contentful";
+import { Entry } from "contentful";
+import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 
 const useStyles = makeStyles({
   img: {
@@ -45,10 +45,13 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     client.getEntry<IHomePageFields>("6eZXvRN13hBH8saBgMBP7T").then((h) => {
-      setHome(h)})
-  }, [setHome])
+      setHome(h);
+    });
+  }, [setHome]);
 
-  if (home == null) return null
+  if (home == null) return null;
+
+  console.log(home);
 
   return (
     <Layout>
@@ -56,15 +59,13 @@ const Home: React.FC = () => {
         <CardMedia
           component="div"
           className={classes.img}
-          image={'https:' + home?.fields?.bannerImage?.fields.file.url}
+          image={"https:" + home?.fields?.bannerImage?.fields.file.url}
           title="Pinnacle Acoustic Consultancy"
         >
           <Grid container direction="row" justify="center" alignItems="center">
             <Grid item xs={11} md={7}>
               <div className={classes.title}>
-                <Typography variant="h1">
-                  {home?.fields?.title}
-                </Typography>
+                <Typography variant="h1">{home?.fields?.title}</Typography>
                 <Typography variant="h5">
                   {home?.fields?.titleDescription}
                 </Typography>
@@ -88,10 +89,20 @@ const Home: React.FC = () => {
           alignItems="center"
         >
           {home?.fields?.sections?.map((section) => {
-            return <HomePageSection key={section.fields.title} description={documentToHtmlString(section.fields.description!)} link={section.fields.link} title={section.fields.title}/>
+            return (
+              <HomePageSection
+                description={section.fields.description || ""}
+                link={section.fields.link}
+                title={section.fields.title}
+              />
+            );
           })}
           <Grid item xs={10} md={8}>
-            <img className={classes.logo} src={'https:' + home?.fields?.footerLogo?.fields.file.url} alt="logo" />
+            <img
+              className={classes.logo}
+              src={"https:" + home?.fields?.footerLogo?.fields.file.url}
+              alt="logo"
+            />
           </Grid>
         </Grid>
       </Grid>
@@ -99,23 +110,30 @@ const Home: React.FC = () => {
   );
 };
 
-const HomePageSection: React.FC<{title: string, link: string, description: string}> = ({title, link, description}) => {
+const HomePageSection: React.FC<{
+  title: string;
+  link: string;
+  description: string;
+}> = ({ title, link, description }) => {
   const classes = useStyles();
 
   return (
-      <div><Grid
-          className={classes.section}
-          container
-          direction="row"
-          justify="center"
-          alignItems="center"
+    <div key={title}>
+      <Grid
+        className={classes.section}
+        container
+        direction="row"
+        justify="center"
+        alignItems="center"
       >
         <Grid item xs={10} md={8}>
           <div>
             <Typography className={classes.content} variant="h2">
               {title}
             </Typography>
-              <div className={classes.content} dangerouslySetInnerHTML={{ __html: description }} />
+            <Typography className={classes.content} variant="h5" component="p">
+              {description}
+            </Typography>
             <Link href={link} passHref>
               <Button variant="contained" color="primary">
                 {title.toUpperCase()}
@@ -123,8 +141,9 @@ const HomePageSection: React.FC<{title: string, link: string, description: strin
             </Link>
           </div>
         </Grid>
-      </Grid></div>
-  )
-}
+      </Grid>
+    </div>
+  );
+};
 
 export default Home;
