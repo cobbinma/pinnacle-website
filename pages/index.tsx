@@ -60,7 +60,7 @@ const Home: React.FC = () => {
           component="div"
           className={classes.img}
           image={"https:" + home?.fields?.bannerImage?.fields.file.url}
-          title="Pinnacle Acoustic Consultancy"
+          title={home?.fields?.title}
         >
           <Grid container direction="row" justify="center" alignItems="center">
             <Grid item xs={11} md={7}>

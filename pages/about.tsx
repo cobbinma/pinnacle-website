@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../components/layout";
 import { Card, CardMedia, Grid, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import Banner from "../components/Banner";
+import { Entry } from "contentful";
+import { IAboutPageFields } from "../@types/generated/contentful";
+import { client } from "./_app";
 
 const useStyles = makeStyles({
   img: {
@@ -38,9 +41,23 @@ const useStyles = makeStyles({
 const About: React.FC = () => {
   const classes = useStyles();
 
+  const [about, setAbout] = useState<Entry<IAboutPageFields>>();
+
+  useEffect(() => {
+    client.getEntry<IAboutPageFields>("3m1ahZvsKeaFhUYdbsZEIP").then((a) => {
+      setAbout(a);
+    });
+  }, [setAbout]);
+
+  if (about == null) return null;
+
   return (
     <Layout>
-      <Banner image="/images/london.jpg" title="About" height={300} />
+      <Banner
+        image={"https:" + about?.fields?.banner?.fields.file.url}
+        title={about?.fields?.title}
+        height={300}
+      />
       <Grid
         className={classes.grid}
         container
@@ -62,14 +79,7 @@ const About: React.FC = () => {
                 variant="h4"
                 component="p"
               >
-                We are a new start-up company which has been formed as a result
-                of the Covid-19 pandemic. Members of our team held senior
-                positions in Arup and other organisations and were made
-                redundant in 2020. We have kept a core team of noise specialists
-                together which means that we can offer the same level of
-                expertise and quality of advice that you would get if you
-                instructed a large firm of consultants but at the fraction of
-                the cost.
+                {about?.fields?.topDescription}
               </Typography>
             </div>
           </Grid>
@@ -92,41 +102,22 @@ const About: React.FC = () => {
               >
                 <Grid item md={8}>
                   <Typography variant="h5" component="p">
-                    Our team have held client roles on nationally significant
-                    infrastructure projects. This means that we are well placed
-                    to offer a range of services including seconded roles,
-                    agency work as well as providing traditional consultancy
-                    services.
+                    {about?.fields?.description}
                   </Typography>
                 </Grid>
                 <Grid item md={4}>
                   <Card className={classes.avatar}>
                     <CardMedia
                       component="img"
-                      image="/images/colin-cobbing.jpg"
-                      title="Colin Cobbing"
+                      image={
+                        "https:" + about?.fields?.avatar?.fields?.file?.url
+                      }
+                      title="avatar"
                     />
                   </Card>
                 </Grid>
               </Grid>
             </div>
-          </Grid>
-          <Grid item xs={10} md={8} className={classes.content}>
-            <Typography variant="h5" component="p">
-              We provide services to the public (local authorities and
-              Government) and private sectors across a wide range of sectors
-              including:
-              <ul>
-                <li>Aviation</li>
-                <li>Rail</li>
-                <li>Highways</li>
-                <li>Construction</li>
-                <li>Industrial</li>
-                <li>Commercial</li>
-                <li>Energy</li>
-                <li>Water</li>
-              </ul>
-            </Typography>
           </Grid>
         </Grid>
       </Grid>
