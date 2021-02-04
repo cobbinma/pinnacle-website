@@ -6,6 +6,7 @@ import {client} from "./_app";
 import Link from "next/link";
 import {IHomePageFields} from "../@types/generated/contentful";
 import {Entry} from "contentful";
+import {documentToHtmlString} from "@contentful/rich-text-html-renderer";
 
 const useStyles = makeStyles({
   img: {
@@ -86,67 +87,9 @@ const Home: React.FC = () => {
           justify="center"
           alignItems="center"
         >
-          <Grid item xs={10} md={8}>
-            <div>
-              <Typography className={classes.content} variant="h2">
-                About Us
-              </Typography>
-              <Typography
-                className={classes.content}
-                variant="h5"
-                component="p"
-              >
-                Pinnacle Acoustic Consultants is an independent noise and
-                vibration consultancy specialising in environmental noise and
-                vibration. We specialise in environmental noise and major
-                development across a range of sectors including rail, highways,
-                aviation, construction, industry and commercial. Our focus is on
-                providing integrated solutions that are truly sustainable,
-                meeting the needs of people and the planet.
-              </Typography>
-              <Link href="/about" passHref>
-                <Button variant="contained" color="primary">
-                  About us
-                </Button>
-              </Link>
-            </div>
-          </Grid>
-        </Grid>
-        <Grid
-          className={classes.section}
-          container
-          direction="row"
-          justify="center"
-          alignItems="center"
-        >
-          <Grid item xs={10} md={8}>
-            <div>
-              <Typography className={classes.content} variant="h2">
-                Services
-              </Typography>
-              <Typography
-                className={classes.content}
-                variant="h5"
-                component="p"
-              >
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book. It has
-                survived not only five centuries, but also the leap into
-                electronic typesetting, remaining essentially unchanged. It was
-                popularised in the 1960s with the release of Letraset sheets
-                containing Lorem Ipsum passages, and more recently with desktop
-                publishing software like Aldus PageMaker including versions of
-                Lorem Ipsum.
-              </Typography>
-              <Link href="/services" passHref>
-                <Button variant="contained" color="primary">
-                  Services
-                </Button>
-              </Link>
-            </div>
-          </Grid>
+          {home?.fields?.sections?.map((section) => {
+            return <HomePageSection key={section.fields.title} description={documentToHtmlString(section.fields.description!)} link={section.fields.link} title={section.fields.title}/>
+          })}
           <Grid item xs={10} md={8}>
             <img className={classes.logo} src={'https:' + home?.fields?.footerLogo?.fields.file.url} alt="logo" />
           </Grid>
@@ -155,5 +98,33 @@ const Home: React.FC = () => {
     </Layout>
   );
 };
+
+const HomePageSection: React.FC<{title: string, link: string, description: string}> = ({title, link, description}) => {
+  const classes = useStyles();
+
+  return (
+      <div><Grid
+          className={classes.section}
+          container
+          direction="row"
+          justify="center"
+          alignItems="center"
+      >
+        <Grid item xs={10} md={8}>
+          <div>
+            <Typography className={classes.content} variant="h2">
+              {title}
+            </Typography>
+              <div className={classes.content} dangerouslySetInnerHTML={{ __html: description }} />
+            <Link href={link} passHref>
+              <Button variant="contained" color="primary">
+                {title.toUpperCase()}
+              </Button>
+            </Link>
+          </div>
+        </Grid>
+      </Grid></div>
+  )
+}
 
 export default Home;

@@ -15,6 +15,9 @@ export interface IHomePageFields {
 
   /** footer-logo */
   footerLogo: Asset;
+
+  /** sections */
+  sections?: IHomePageSection[] | undefined;
 }
 
 export interface IHomePage extends Entry<IHomePageFields> {
@@ -34,7 +37,35 @@ export interface IHomePage extends Entry<IHomePageFields> {
   };
 }
 
-export type CONTENT_TYPE = "homePage";
+export interface IHomePageSectionFields {
+  /** title */
+  title: string;
+
+  /** link */
+  link: string;
+
+  /** description */
+  description?: Document | undefined;
+}
+
+export interface IHomePageSection extends Entry<IHomePageSectionFields> {
+  sys: {
+    id: string;
+    type: string;
+    createdAt: string;
+    updatedAt: string;
+    locale: string;
+    contentType: {
+      sys: {
+        id: "homePageSection";
+        linkType: "ContentType";
+        type: "Link";
+      };
+    };
+  };
+}
+
+export type CONTENT_TYPE = "homePage" | "homePageSection";
 
 export type LOCALE_CODE = "en-US";
 
