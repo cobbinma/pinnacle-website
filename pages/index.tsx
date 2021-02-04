@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../components/layout";
 import { Button, Card, CardMedia, Grid, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
+import { client } from "./_app";
 import Link from "next/link";
+import { IHomePageFields } from "../@types/generated/contentful";
+import { Entry } from "contentful";
+import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 
 const useStyles = makeStyles({
   img: {
@@ -37,6 +41,17 @@ const useStyles = makeStyles({
 
 const Home: React.FC = () => {
   const classes = useStyles();
+  const [home, setHome] = useState<Entry<IHomePageFields>>();
+
+  useEffect(() => {
+    client.getEntry<IHomePageFields>("6eZXvRN13hBH8saBgMBP7T").then((h) => {
+      setHome(h);
+    });
+  }, [setHome]);
+
+  if (home == null) return null;
+
+  console.log(home);
 
   return (
     <Layout>
@@ -44,17 +59,15 @@ const Home: React.FC = () => {
         <CardMedia
           component="div"
           className={classes.img}
-          image="/images/lake.jpg"
-          title="Pinnacle Acoustic Consultancy"
+          image={"https:" + home?.fields?.bannerImage?.fields.file.url}
+          title={home?.fields?.title}
         >
           <Grid container direction="row" justify="center" alignItems="center">
             <Grid item xs={11} md={7}>
               <div className={classes.title}>
-                <Typography variant="h1">
-                  Pinnacle Acoustic Consultants
-                </Typography>
+                <Typography variant="h1">{home?.fields?.title}</Typography>
                 <Typography variant="h5">
-                  Environmental Noise and Vibration Specialists
+                  {home?.fields?.titleDescription}
                 </Typography>
               </div>
             </Grid>
@@ -75,73 +88,61 @@ const Home: React.FC = () => {
           justify="center"
           alignItems="center"
         >
+          {home?.fields?.sections?.map((section) => {
+            return (
+              <HomePageSection
+                description={section.fields.description || ""}
+                link={section.fields.link}
+                title={section.fields.title}
+              />
+            );
+          })}
           <Grid item xs={10} md={8}>
-            <div>
-              <Typography className={classes.content} variant="h2">
-                About Us
-              </Typography>
-              <Typography
-                className={classes.content}
-                variant="h5"
-                component="p"
-              >
-                Pinnacle Acoustic Consultants is an independent noise and
-                vibration consultancy specialising in environmental noise and
-                vibration. We specialise in environmental noise and major
-                development across a range of sectors including rail, highways,
-                aviation, construction, industry and commercial. Our focus is on
-                providing integrated solutions that are truly sustainable,
-                meeting the needs of people and the planet.
-              </Typography>
-              <Link href="/about" passHref>
-                <Button variant="contained" color="primary">
-                  About us
-                </Button>
-              </Link>
-            </div>
-          </Grid>
-        </Grid>
-        <Grid
-          className={classes.section}
-          container
-          direction="row"
-          justify="center"
-          alignItems="center"
-        >
-          <Grid item xs={10} md={8}>
-            <div>
-              <Typography className={classes.content} variant="h2">
-                Services
-              </Typography>
-              <Typography
-                className={classes.content}
-                variant="h5"
-                component="p"
-              >
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book. It has
-                survived not only five centuries, but also the leap into
-                electronic typesetting, remaining essentially unchanged. It was
-                popularised in the 1960s with the release of Letraset sheets
-                containing Lorem Ipsum passages, and more recently with desktop
-                publishing software like Aldus PageMaker including versions of
-                Lorem Ipsum.
-              </Typography>
-              <Link href="/services" passHref>
-                <Button variant="contained" color="primary">
-                  Services
-                </Button>
-              </Link>
-            </div>
-          </Grid>
-          <Grid item xs={10} md={8}>
-            <img className={classes.logo} src="images/logo.png" alt="logo" />
+            <img
+              className={classes.logo}
+              src={"https:" + home?.fields?.footerLogo?.fields.file.url}
+              alt="logo"
+            />
           </Grid>
         </Grid>
       </Grid>
     </Layout>
+  );
+};
+
+const HomePageSection: React.FC<{
+  title: string;
+  link: string;
+  description: string;
+}> = ({ title, link, description }) => {
+  const classes = useStyles();
+
+  return (
+    <div key={title}>
+      <Grid
+        className={classes.section}
+        container
+        direction="row"
+        justify="center"
+        alignItems="center"
+      >
+        <Grid item xs={10} md={8}>
+          <div>
+            <Typography className={classes.content} variant="h2">
+              {title}
+            </Typography>
+            <Typography className={classes.content} variant="h5" component="p">
+              {description}
+            </Typography>
+            <Link href={link} passHref>
+              <Button variant="contained" color="primary">
+                {title.toUpperCase()}
+              </Button>
+            </Link>
+          </div>
+        </Grid>
+      </Grid>
+    </div>
   );
 };
 

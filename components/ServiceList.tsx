@@ -1,9 +1,10 @@
 import React from "react";
 import { Grid } from "@material-ui/core";
-import Service, { ServiceProps } from "./Service";
+import Service from "./Service";
+import { IService } from "../@types/generated/contentful";
 
 interface ServiceListProps {
-  services: Array<ServiceProps>;
+  services: IService[];
 }
 
 const ServiceList: React.FC<ServiceListProps> = ({ services }) => {
@@ -17,8 +18,8 @@ const ServiceList: React.FC<ServiceListProps> = ({ services }) => {
     >
       {services.map((service) => {
         return (
-          <Grid key={service.id} item xs={12} sm={6} md={6} lg={4}>
-            <Service {...service} />
+          <Grid key={service.fields?.title} item xs={12} sm={9} md={8} lg={8}>
+            <Service {...service?.fields} />
           </Grid>
         );
       })}
